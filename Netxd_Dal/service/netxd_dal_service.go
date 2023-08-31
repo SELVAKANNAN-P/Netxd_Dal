@@ -1,13 +1,6 @@
-package service
+package services
 
-import (
-	"Netxd_Dal/interfaces"
-	"Netxd_Dal/models"
-	"context"
-
-	"go.mongodb.org/mongo-driver/bson/primitive"
-	"go.mongodb.org/mongo-driver/mongo"
-)
+import "context"
 
 type CustomerService struct {
 	CustomerCollection *mongo.Collection
@@ -17,24 +10,19 @@ type CustomerService struct {
 func InitCustomerService(collection *mongo.Collection, ctx context.Context) interfaces.ICustomer {
 	return &CustomerService{collection, ctx}
 }
-func (c *CustomerService) CreateCustomer(Customer *models.Customer) (*models.DBResponse, error) {
-	// Customer.CustomerID = 123
-	// Customer.FirstName = "selva"
-	// Customer.LastName = "kannan"
-	// Customer.BankID = 1234
-	// Customer.Balance = 89000
-	// Customer.CreatedAt = "29.08.2023"
-	// Customer.UpdateAt = "30.08.2023"
-	// Customer.ISActive = true
-	// res, err := c.CustomerCollection.InsertOne(c.ctx, &Customer)
-	res, err := c.CustomerCollection.InsertOne(c.ctx, &Customer)
 
+func (p *CustomerService) CreateCustomer(customer *models.Customer) (*models.DBResponse, error) {
+	// Insert the customer into the MongoDB collection
+	_, err := p.CustomerCollection.InsertOne(p.ctx, customer)
 	if err != nil {
 		return nil, err
 	}
-	Response := &models.DBResponse{
-		CustomerID: res.InsertedID.(primitive.ObjectID),
-		CreatedAt:  Customer.CreatedAt,
+
+	// Construct the response with customer ID and CreatedAt
+	response := &models.DBResponse{
+		CustomerID: customer.CustomerID,
+		CreatedAt:  customer.CreatedAt,
 	}
-	return Response, nil
+
+	return response, nil
 }
