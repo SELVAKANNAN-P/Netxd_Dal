@@ -1,6 +1,6 @@
 package interfaces
 
-import "Netxd_Project1/Netxd_Customer_dal/models"
+import "github.com/SELVAKANNAN-P/Netxd_Dal/models"
 
 type ICustomer interface {
 	CreateCustomer(customer *models.Customer) (*models.DBResponse, error)

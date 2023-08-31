@@ -1,4 +1,4 @@
-module Netxd_Dal
+module github.com/SELVAKANNAN-P/Netxd_Dal
 
 go 1.18
 

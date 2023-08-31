@@ -1,6 +1,12 @@
 package services
 
-import "context"
+import (
+	"context"
+
+	"github.com/SELVAKANNAN-P/Netxd_Dal/interfaces"
+	"github.com/SELVAKANNAN-P/Netxd_Dal/models"
+	"go.mongodb.org/mongo-driver/mongo"
+)
 
 type CustomerService struct {
 	CustomerCollection *mongo.Collection
